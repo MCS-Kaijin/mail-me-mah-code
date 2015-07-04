@@ -5,6 +5,11 @@ import re
 
 from smtplib import SMTP
 
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+from email.MIMEBase import MIMEBase
+from email import encoders
+
 sender = raw_input("Your email: ")
 sender = re.match((r'(?P<usr>[\w]+)@(?P<host>.+)'), sender)
 password = raw_input("Password: ")
@@ -16,7 +21,10 @@ for filename in os.listdir(folder):
         fl = open(folder+'/'+filename, 'r')
         mstr = mstr+fl.read()+'\n\n----\n\n'
 
-msg = "From: {}@{}\r\nTo: {}\r\nSubject: {}\r\n\r\n{}".format(sender.group("usr"), sender.group("host"), recipient, folder, mstr)
+msg = MIMEMultipart()
+msg['From'] = sender.group("usr")+"@"+sender.group("host")
+msg['To'] = recipient
+msg['Subject'] = folder
 
 smtp = SMTP("smtp.gmail.com")
 smtp.starttls()
