@@ -5,12 +5,12 @@ import re
 
 from smtplib import SMTP
 
-sender = input("Your email: ")
+sender = raw_input("Your email: ")
 sender = re.match((r'(?P<usr>[\w]+)@(?P<host>.+)'), sender)
-password = input("Password: ")
-recipient = input("To: ")
+password = raw_input("Password: ")
+recipient = raw_input("To: ")
 
-folder = input("Folder containing project: ")
+folder = raw_input("Folder containing project: ")
 mstr = ''
 for filename in os.listdir(folder):
         fl = open(folder+'/'+filename, 'r')
