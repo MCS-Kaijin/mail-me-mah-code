@@ -37,6 +37,7 @@ msg.attach(part)
 smtp = SMTP('smtp.' + host)
 smtp.starttls()
 smtp.login(usr, password)
+del password  # just to make double sure
 smtp.sendmail(sender, recipient, msg.as_string())
 smtp.quit()
 print('Done.')
