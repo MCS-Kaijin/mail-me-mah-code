@@ -31,7 +31,7 @@ with open(zip_file_path, 'r') as attach:
     part.set_payload(attach.read())
 encoders.encode_base64(part)
 part.add_header('Content-Disposition',
-                'attachment; filename="{}"'.format(filename))
+                'attachment; filename="{}"'.format(zip_file_path))
 msg.attach(part)
 
 smtp = SMTP('smtp.' + host)
