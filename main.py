@@ -25,7 +25,6 @@ msg = MIMEMultipart()
 msg['From'] = sender
 msg['To'] = recipient
 msg['Subject'] = folder
-msg.attach(MIMEText('', 'plain'))  # is this line needed?
 
 part = MIMEBase('application', 'zip')
 with open(zip_file_path, 'r') as attach:
