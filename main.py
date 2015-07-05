@@ -15,7 +15,7 @@ password = raw_input('Password: ').strip()
 recipient = raw_input('To: (sender) ').strip() or sender
 
 zip_file_path = os.path.expanduser('~/Documents/code.zip')
-folder = raw_input('Folder containing project: ')
+folder = raw_input('Folder containing project: ').strip()
 with zipfile.ZipFile(zip_file_path, 'w') as attach:
     for root, dirs, files in os.walk(folder):
         for fl in files:
@@ -30,7 +30,8 @@ part = MIMEBase('application', 'zip')
 with open(zip_file_path, 'r') as attach:
     part.set_payload(attach.read())
 encoders.encode_base64(part)
-part.add_header('Content-Disposition', 'attachment; filename="../code.zip"')
+part.add_header('Content-Disposition',
+                'attachment; filename="{}"'.format(filename))
 msg.attach(part)
 
 smtp = SMTP('smtp.' + host)
