@@ -24,14 +24,14 @@ with zipfile.ZipFile(zip_file_path, 'w') as attach:
 msg = MIMEMultipart()
 msg['From'] = sender
 msg['To'] = recipient
-msg['Subject'] = folder
+msg['Subject'] = os.path.basename(os.path.abspath(folder))
 
 part = MIMEBase('application', 'zip')
 with open(zip_file_path, 'r') as attach:
     part.set_payload(attach.read())
 encoders.encode_base64(part)
 part.add_header('Content-Disposition',
-                'attachment; filename="{}"'.format(zip_file_path))
+                'attachment; filename="{}"'.format(zip_file_path.split('/')[-1]))
 msg.attach(part)
 
 smtp = SMTP('smtp.' + host)
